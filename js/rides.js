@@ -230,7 +230,8 @@ function renderRides(id, passengerUid, riderUid, userLocation, destination, dist
 		const minFare = rates.data().minimumFare;
 		const extraFarePerKm = rates.data().extraFarePerKm;
 
-		tvFare.innerHTML = "Estimated Fare: ₱" + (distance.inMeters < 1000 ? minFare : minFare + (extraFarePerKm * Math.floor(distance.inMeters / 1000))) + ".00";
+		const estimatedFare = distance.inMeters < 1000 ? minFare : minFare + (extraFarePerKm * Math.floor(distance.inMeters / 1000));
+		tvFare.innerHTML = "Estimated Fare: ₱" + Number(estimatedFare).toFixed(2);
 	});
 
 	cardContainer.appendChild(card);

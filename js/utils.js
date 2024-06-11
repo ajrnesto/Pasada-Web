@@ -1,6 +1,12 @@
 import { db } from '../js/firebase.js';
 import { doc, getDoc } from 'https://www.gstatic.com/firebasejs/10.5.2/firebase-firestore.js';
 
+// export function parseMoney(num) {
+//     var num = theform.original.value, rounded = theform.rounded
+//     var with2Decimals = num.toString().match(/^-?\d+(?:\.\d{0,2})?/)[0]
+//     rounded.value = with2Decimals
+// }
+
 /* authentication */
 export function checkUserTypeThenRedirect(user) {
 	if (!user) {
