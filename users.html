@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rides</title>
+  <link rel="stylesheet" href="/css/main.min.css">
+  <link rel="stylesheet" href="/css/global.css">
+	<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+	<link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-straight/css/uicons-regular-straight.css'>
+	<link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css'>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+  <script type="module" src="/js/navbar-admin.js"></script>
+  <script type="module" src="/js/users.js"></script>
+</head>
+
+<body class="bg-light">
+	<nav class="navbar sticky-top navbar-expand-md navbar-light py-0" style="background-color: white;">
+		<div class="container-fluid justify-content-center">
+		    <a class="navbar-brand col-9 col-md-2 ms-0 ms-md-4" href="#"><img src="/images/logo-text.png" alt="J&J" width="80"/></a>
+		    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+		    </button>
+		    <div class="collapse col-9 col-md-10 navbar-collapse justify-content-end" id="navbarSupportedContent">
+				<div class="col-12 col-md-6"></div>
+				<ul class="navbar-nav col-12 col-md-auto justify-content-center mb-2 mb-lg-0">
+					<!--li class="nav-item col-sm-auto px-3 text-center py-2">
+						<a class="nav-link" href="dashboard.html">Dashboard</a>
+					</li-->
+					<li class="nav-item nav-btn-track-orders col-sm-auto px-3 text-center py-2">
+						<a class="nav-link" href="rides.html">Rides</a>
+					</li>
+					<!-- <li class="nav-item nav-btn-cart col-sm-auto px-3 text-center py-2">
+						<a class="nav-link" href="orders.html">Orders</a>
+					</li> -->
+					<li class="nav-item nav-btn-cart col-sm-auto px-3 text-center py-2 bg-primary">
+						<a class="nav-link active" aria-current="page" href="#">Manage Users</a>
+					</li>
+					<li class="nav-item nav-btn-avatar col-sm-auto px-3 text-center py-auto dropdown">
+						<a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							<img class="user-avatar my-0 py-0" alt="">
+						</a>
+						<ul class="dropdown-menu dropdown-menu-end">
+							<li><a class="dropdown-item text-center disabled text-primary" href="#"><img class="user-avatar my-0 py-0" alt=""></a></li>
+							<li><a class="dropdown-item text-center dropdown-text-email disabled text-primary" href="#">Email Address</a></li>
+							<li><a class="dropdown-item text-center text-danger" href="#" id="btnLogout">Log out</a></li>
+						</ul>
+					</li>
+				</ul>
+		    </div>
+		</div>
+	</nav>
+	
+	<div class="row">
+		<div class="col-12 pt-4 py-xl-4 pe-xl-4">
+			<div class="container rounded table-responsive bg-white p-4">
+				<div class="row">
+					<h5 class="text-start text-primary col-12 my-auto">Users</h5>
+
+					<form class="col-12 mt-4">
+						<div class="input-group w-100">
+							<label class="input-group-text" for="menuFilter">Filter By</label>
+							<select class="form-select" id="menuFilter">
+								<option value="User ID">User ID</option>
+								<option value="User Name">User Name</option>
+							</select>
+							<input id="etSearchId" type="text" class="form-control w-50" placeholder="Enter User ID" aria-label="Enter User ID">
+							<input id="etFirstName" type="text" class="form-control w-25 d-none" placeholder="First Name" aria-label="First Name">
+							<input id="etLastName" type="text" class="form-control w-25 d-none" placeholder="Last Name" aria-label="Last Name">
+							<button class="btn btn-primary search-button" type="button" id="btnFilter">
+								<i class="fi fi-br-search text-light mx-2" style="font-size: 0.8rem;"></i>
+							</button>
+						</div>
+					</form>
+
+					<table class="table align-middle mt-3">
+						<thead>
+							<tr>
+								<th scope="col" class="col-1">Govt. ID</th>
+								<th scope="col" class="col-4">User</th>
+								<th scope="col" class="col-1">Mobile</th>
+								<th scope="col" class="col-1">Email</th>
+								<th scope="col" class="col-1">Role</th>
+								<th scope="col" class="col-1">Total Revenue</th>
+								<th scope="col" class="col-1">Total Spent</th>
+								<th scope="col" class="col-1">Ride Activity</th>
+								<th scope="col" class="col-1">Rider Verification</th>
+							</tr>
+						</thead>
+						<tbody id="tbodyUsers"></tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div id="modalViewHistory" class="modal fade" tabindex="-1" aria-labelledby="tvUserName" aria-hidden="true">
+		<div class="modal-dialog modal-fullscreen modal-dialog-scrollable modal-dialog-centered modal-xl">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 id="tvUserName" class="modal-title fs-5 text-primary">User History</h1>
+					<button id="btnCloseModal" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body bg-light">
+					<div class="row">
+						<div class="col-12 pt-4 py-xl-4 pe-xl-4">
+							<div class="container rounded table-responsive bg-white p-4">
+								<div class="row">
+									<h6 id="tvEmptyHistory" class="d-none">This user has no ride activity</h6>
+									<table id="tableHistory" class="table align-middle">
+										<thead>
+											<tr>
+												<th scope="col" class="col-1">Ride Id</th>
+												<th scope="col" class="col-1">Date</th>
+												<th scope="col" class="col-1">From</th>
+												<th scope="col" class="col-1">To</th>
+												<th scope="col" class="col-1">Passenger</th>
+												<th scope="col" class="col-1">Rider</th>
+												<th scope="col" class="col-1">Distance</th>
+												<th scope="col" class="col-1">Duration</th>
+												<th scope="col" class="col-1">Fare</th>
+												<th scope="col" class="col-1">Status</th>
+												<th scope="col" class="col-1">Route</th>
+											</tr>
+										</thead>
+										<tbody id="tbodyRides"></tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="modalViewId" class="modal fade" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5 text-primary">Rider ID</h1>
+					<button id="btnCloseModal" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body bg-light">
+					<img id="imgId" class="rounded col-12">
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div id="modalViewRoute" class="modal fade" tabindex="-1" aria-labelledby="tvViewRouteTitle" aria-hidden="true">
+		<div class="modal-dialog modal-fullscreen modal-dialog-scrollable modal-dialog-centered modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 id="tvViewRouteTitle" class="modal-title fs-5">Route</h1>
+					<button id="btnCloseModal" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div id="modalViewRouteBody" class="modal-body">
+					<div id="map" class="google-map form-control unit-location-validator"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>(g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})
+		({key: "AIzaSyAiq-ZSfS5QdwGEWJAzz3eC0enuOkHvphM", v: "weekly"});</script>
+	<script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

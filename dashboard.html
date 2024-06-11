@@ -26,7 +26,7 @@
 						<a class="nav-link active" aria-current="page" href="#">Dashboard</a>
 					</li>
 					<li class="nav-item nav-btn-track-orders col-sm-auto px-3 text-center py-2">
-						<a class="nav-link" href="products.html">Manage Products</a>
+						<a class="nav-link" href="rides.html">Rides</a>
 					</li>
 					<li class="nav-item nav-btn-cart col-sm-auto px-3 text-center py-2">
 						<a class="nav-link" href="orders.html">Orders</a>
@@ -53,16 +53,18 @@
 			<div class="row">
 				<h6 id="tvPending" class="col-2 display-5 text-dark text-center">0</h3>
 				<h6 id="tvPreparing" class="col-2 display-5 text-dark text-center">0</h4>
-				<h6 id="tvReadyForPickup" class="col-3 display-5 text-dark text-center">0</h4>
+				<h6 id="tvReadyForPickup" class="col-2 display-5 text-dark text-center">0</h4>
 				<h6 id="tvInTransit" class="col-2 display-5 text-dark text-center">0</h3>
-				<h6 id="tvCompleted" class="col-3 display-5 text-dark text-center">0</h3>
+				<h6 id="tvCompleted" class="col-2 display-5 text-dark text-center">0</h3>
+				<h6 id="tvFailedDelivery" class="col-2 display-5 text-dark text-center">0</h3>
 			</div>
 			<div class="row">
 				<p class="col-2 text-dark text-center">Pending</p>
 				<p class="col-2 text-dark text-center">Preparing</p>
-				<p class="col-3 text-dark text-center">Ready for Pick-up</p>
+				<p class="col-2 text-dark text-center">Ready for Pick-up</p>
 				<p class="col-2 text-dark text-center">In Transit</p>
-				<p class="col-3 text-dark text-center">Delivered/Picked-up</p>
+				<p class="col-2 text-dark text-center">Completed</p>
+				<p class="col-2 text-dark text-center">Failed Delivery</p>
 			</div>
 			<hr class="mt-2"/>
 		</div>
@@ -85,16 +87,16 @@
 			</div>
 		
 			<div class="col-12 col-sm-7 container p-4">
-				<div id="cardProducts" class="row rounded bg-white p-4 justify-content-center" role="button">
-					<h3 class="text-center">Products</h3>
+				<div id="cardRides" class="row rounded bg-white p-4 justify-content-center" role="button">
+					<h3 class="text-center">Rides</h3>
 					<hr class="mt-2"/>
 					<div class="row">
 						<h6 id="tvCategories" class="col-6 display-5 text-dark text-center">0</h3>
-						<h6 id="tvProducts" class="col-6 display-5 text-dark text-center">0</h3>
+						<h6 id="tvRides" class="col-6 display-5 text-dark text-center">0</h3>
 					</div>
 					<div class="row">
 						<p class="col-6 text-dark text-center">Categories</p>
-						<p class="col-6 text-dark text-center">Products</p>
+						<p class="col-6 text-dark text-center">Rides</p>
 					</div>
 					<hr class="mt-2"/>
 				</div>

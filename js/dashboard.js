@@ -1,22 +1,27 @@
 import { db, auth, storage } from '../js/firebase.js';
 import { onAuthStateChanged } from '../node_modules/firebase/firebase-auth.js';
-import { doc, collection, getDoc, getDocs, addDoc, updateDoc, increment, deleteDoc, Timestamp, arrayUnion, deleteField, query, where, orderBy, startAt, endAt, onSnapshot } from 'https://www.gstatic.com/firebasejs/9.16.0/firebase-firestore.js';
+import { doc, collection, getDoc, getDocs, addDoc, updateDoc, increment, deleteDoc, Timestamp, arrayUnion, deleteField, query, where, orderBy, startAt, endAt, onSnapshot } from 'https://www.gstatic.com/firebasejs/10.5.2/firebase-firestore.js';
 import { ref, getDownloadURL, deleteObject, connectStorageEmulator } from "../node_modules/firebase/firebase-storage.js";
-import { showModal, hideModal, resetValidation, invalidate } from '../js/utils.js';
+import { blockEmployees, showModal, hideModal, resetValidation, invalidate } from '../js/utils.js';
 
 const cardOrders = document.querySelector("#cardOrders");
-const cardProducts = document.querySelector("#cardProducts");
+const cardRides = document.querySelector("#cardRides");
 const tvPending = document.querySelector("#tvPending");
 const tvPreparing = document.querySelector("#tvPreparing");
 const tvReadyForPickup = document.querySelector("#tvReadyForPickup");
 const tvInTransit = document.querySelector("#tvInTransit");
 const tvCompleted = document.querySelector("#tvCompleted");
+const tvFailedDelivery = document.querySelector("#tvFailedDelivery");
 const tvRevenue = document.querySelector("#tvRevenue");
 const tvCategories = document.querySelector("#tvCategories");
-const tvProducts = document.querySelector("#tvProducts");
+const tvRides = document.querySelector("#tvRides");
 
-cardProducts.addEventListener("click", function() {
-	window.location = "products.html";
+onAuthStateChanged(auth, user => {
+	blockEmployees(user);
+});
+
+cardRides.addEventListener("click", function() {
+	window.location = "rides.html";
 });
 
 cardOrders.addEventListener("click", function() {
@@ -29,8 +34,9 @@ window.addEventListener("load", function() {
 	listenToReadyForPickupOrders();
 	listenToInTransitOrders();
 	listenToCompletedOrders();
+	listenToFailedDeliveryOrders();
 	listenToRevenue();
-	listenToProducts();
+	listenToRides();
 	listenToCategories();
 });
 
@@ -74,6 +80,14 @@ function listenToCompletedOrders() {
 	});
 }
 
+function listenToFailedDeliveryOrders() {
+	const qry = query(collection(db, "orders"), where("status", "==", "Failed Delivery"));
+
+	onSnapshot(qry, (orders) => {
+		tvFailedDelivery.innerHTML = orders.size;
+	});
+}
+
 function listenToRevenue() {
 	const now = new Date();
 	const thisMonth = ("0" + (now.getMonth() + 1)).slice(-2);
@@ -91,11 +105,11 @@ function listenToRevenue() {
 	});
 }
 
-function listenToProducts() {
+function listenToRides() {
 	const qry = query(collection(db, "products"));
 
 	onSnapshot(qry, (products) => {
-		tvProducts.innerHTML = products.size;
+		tvRides.innerHTML = products.size;
 	});
 }
 

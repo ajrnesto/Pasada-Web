@@ -1,17 +1,18 @@
 // imports
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.16.0/firebase-app.js';
-import { getAuth } from '../node_modules/firebase/firebase-auth.js';
-import { getFirestore } from 'https://www.gstatic.com/firebasejs/9.16.0/firebase-firestore.js';
-import { getStorage } from "../node_modules/firebase/firebase-storage.js";
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.5.2/firebase-app.js';
+import { getAuth } from 'https://www.gstatic.com/firebasejs/10.5.2/firebase-auth.js';
+import { getFirestore } from 'https://www.gstatic.com/firebasejs/10.5.2/firebase-firestore.js';
+import { getStorage } from 'https://www.gstatic.com/firebasejs/10.5.2/firebase-storage.js';
 
 export const app = initializeApp({
-	apiKey: "AIzaSyBHj7ai9DnMGMO8jHvchLUxnbmrVST8WhI",
-	authDomain: "j-and-j-motorparts.firebaseapp.com",
-	projectId: "j-and-j-motorparts",
-	storageBucket: "j-and-j-motorparts.appspot.com",
-	messagingSenderId: "497755068532",
-	appId: "1:497755068532:web:6fe41ea958a74f85281921",
-	measurementId: "G-P1S76JTRLM"
+  apiKey: "AIzaSyAiq-ZSfS5QdwGEWJAzz3eC0enuOkHvphM",
+  authDomain: "pasadaapp.firebaseapp.com",
+  databaseURL: "https://pasadaapp-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "pasadaapp",
+  storageBucket: "pasadaapp.appspot.com",
+  messagingSenderId: "427047339609",
+  appId: "1:427047339609:web:66c631d29f5b2e17a5d348",
+  measurementId: "G-Q17W6JL8X1"
 });
 
 export const auth = getAuth(app);

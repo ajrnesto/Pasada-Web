@@ -5,35 +5,39 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Manage Products</title>
+        <title>Pasada Rides</title>
         <link rel="stylesheet" href="/css/main.min.css">
         <link rel="stylesheet" href="/css/global.css">
+				<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 		<link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-straight/css/uicons-regular-straight.css'>
 		<link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css'>
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+		<!-- <script>(g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})
+			({key: "AIzaSyDi67EqoPXOjXwKYW2Q-Ehc2Mif_cMGLKM", v: "weekly"});</script> -->
         <script type="module" src="/js/navbar-admin.js"></script>
-        <script type="module" src="/js/products.js"></script>
-        <script type="module" src="/js/products-categories.js"></script>
+        <script type="module" src="/js/rides.js"></script>
+				<!-- <script src="http://maps.google.com/maps/api/js?sensor=true"></script> -->
+        <!-- <script type="module" src="/js/rides-categories.js"></script> -->
 </head>
 
 <body class="bg-light">
 	<nav class="navbar sticky-top navbar-expand-md navbar-light py-0" style="background-color: white;">
 		<div class="container-fluid justify-content-center">
-		    <a class="navbar-brand col-9 col-md-2 ms-0 ms-md-4" href="#"><img src="/images/logo.png" alt="J&J" width="80"/></a>
+		    <a class="navbar-brand col-9 col-md-2 ms-0 ms-md-4" href="#"><img src="/images/logo-text.png" alt="J&J" width="80"/></a>
 		    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 		    </button>
 		    <div class="collapse col-9 col-md-10 navbar-collapse justify-content-end" id="navbarSupportedContent">
 				<div class="col-12 col-md-6"></div>
 				<ul class="navbar-nav col-12 col-md-auto justify-content-center mb-2 mb-lg-0">
-					<li class="nav-item col-sm-auto px-3 text-center py-2">
+					<!--li class="nav-item col-sm-auto px-3 text-center py-2">
 						<a class="nav-link" href="dashboard.html">Dashboard</a>
-					</li>
+					</li-->
 					<li class="nav-item nav-btn-track-orders col-sm-auto px-3 text-center py-2 bg-primary">
-						<a class="nav-link active" aria-current="page" href="#">Manage Products</a>
+						<a class="nav-link active" aria-current="page" href="#">Rides</a>
 					</li>
 					<li class="nav-item nav-btn-cart col-sm-auto px-3 text-center py-2">
-						<a class="nav-link" href="orders.html">Orders</a>
+						<a class="nav-link" href="users.html">Manage Users</a>
 					</li>
 					<li class="nav-item nav-btn-avatar col-sm-auto px-3 text-center py-auto dropdown">
 						<a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -51,12 +55,11 @@
 	</nav>
 	
 	<div class="row">
-		<div class="col-12 col-xl-3 pt-4 py-xl-4 ps-xl-4">
+		<div class="d-none col-12 col-xl-3 pt-4 py-xl-4 ps-xl-4">
 			<div class="container rounded bg-white p-4">
 				<div class="row">
 					<h5 class="text-start text-primary col-5 my-auto">Categories</h5>
 					<div class="col-7">
-						<button class="btn btn-primary float-end" id="btnAddCategory" onclick="manageCategory(null, null)" type="button" data-bs-toggle="modal" data-bs-target="#modalManageCategory"><i class="bi bi-plus-lg me-2 text-light" style="font-size: 1rem;"></i>Add New</button>
 					</div>
 					<div class="col-12">
 						<form class="col-12 mt-4">
@@ -82,35 +85,116 @@
 			</div>
 		</div>
 	
-		<div class="col-12 col-xl-9 pt-4 py-xl-4 pe-xl-4">
+		<!-- <div class="row">
+			<div class="col-12 pt-4 py-xl-4 pe-xl-4">
+				<div class="container rounded table-responsive bg-white p-4">
+					<div class="row">
+						<h5 class="text-start text-primary col-12 my-auto">Rides</h5>
+	
+						<form class="col-12 mt-4">
+							<div class="input-group w-100">
+								<label class="input-group-text" for="menuFilter">Filter By</label>
+								<select class="form-select" id="menuFilter">
+									<option value="Passenger UID">Passenger UID</option>
+									<option value="Rider UID">Rider UID</option>
+								</select>
+								<input id="etSearchId" type="text" class="form-control w-50" placeholder="Enter ID" aria-label="Enter ID">
+								<button class="btn btn-primary search-button" type="button" id="btnSearchId">
+									<i class="fi fi-br-search text-light mx-2" style="font-size: 0.8rem;"></i>
+								</button>
+							</div>
+						</form>
+	
+						<table class="table align-middle mt-3">
+							<thead>
+								<tr>
+									<th scope="col" class="col-1">Date</th>
+									<th scope="col" class="col-1">From</th>
+									<th scope="col" class="col-1">To</th>
+									<th scope="col" class="col-2">Passenger</th>
+									<th scope="col" class="col-2">Rider</th>
+									<th scope="col" class="col-1">Distance</th>
+									<th scope="col" class="col-1">Duration</th>
+									<th scope="col" class="col-1">Fare</th>
+									<th scope="col" class="col-1">Status</th>
+									<th scope="col" class="col-1">Route</th>
+								</tr>
+							</thead>
+							<tbody id="tbodyRides"></tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div> -->
+
+		<div id="tabsOrders" class="text-center mt-3">
+			<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+				<input type="radio" class="btn-check" name="btnradio" id="btnActiveRides" autocomplete="off" checked>
+				<label id="btnActiveRidesLabel" class="btn btn-outline-secondary" for="btnActiveRides">Active Rides</label>
+				
+				<input type="radio" class="btn-check" name="btnradio" id="btnRidesArchive" autocomplete="off">
+				<label id="btnRidesArchiveLabel" class="btn btn-outline-secondary" for="btnRidesArchive">Rides Archive</label>
+			</div>
+		</div>
+	
+		<div class="col-4 ps-4 pe-0 mt-3">
 			<div class="container rounded table-responsive bg-white p-4">
 				<div class="row">
-					<h5 class="text-start text-primary col-5 my-auto">Products</h5>
-					<div class="col-7">
-						<button class="btn btn-primary float-end" id="btnAddProduct" onclick="manageProduct(null)" type="button" data-bs-toggle="modal" data-bs-target="#modalManageProduct"><i class="bi bi-plus-lg me-2 text-light" style="font-size: 1rem;"></i>Add New Product</button>
-					</div>
+					<h5 class="text-start text-primary col-5 my-auto">Fare Rate</h5>
 						
 					<div class="col-12">
 						<div class="row">
-							<form class="col-12 col-lg-4 mt-4">
+							<form class="col-12 mt-4">
+								<div class="input-group row">
+									<label class="input-group-text col" for="etMinimumFare">Minimum Fare (1km)</label>
+									<input id="etMinimumFare" type="text" class="form-control col" placeholder="Enter Rate" aria-label="Enter Rate">
+								</div>
+								<div class="input-group row mt-2">
+									<label class="input-group-text col" for="etRatePerExtraKm">Rate per Extra Km</label>
+									<input id="etRatePerExtraKm" type="text" class="form-control col" placeholder="Enter Rate" aria-label="Enter Rate">
+								</div>
+								<div class="text-end">
+									<button class="btn btn-primary d-none mt-3" type="button" id="btnSaveRates">Save Rate Changes</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+		<div class="col-8 pe-4 mt-3">
+			<div class="container rounded table-responsive bg-white p-4">
+				<div class="row">
+					<h5 class="text-start text-primary col-5 my-auto">Rides</h5>
+						
+					<div class="col-12">
+						<div class="row">
+							<form class="d-none col-12 col-lg-4 mt-4">
 								<div class="input-group">
 									<label class="input-group-text" for="menuCategoriesFilter">Category</label>
 									<select class="form-select" id="menuCategoriesFilter">
 										<option value="-1">All</option>
 										<option value="Uncategorized">Uncategorized</option>
 									</select>
-									<!--label for="menuCategoriesFilter" class="input-group-text">Category</label>
-									<input class="form-control" list="datalistCategories" id="menuCategoriesFilter" placeholder="Filter by category...">
+									<label for="menuCategoriesFilter" classt="input-group-text">Category</label>
+									<input class="form-control" list="datalisCategories" id="menuCategoriesFilter" placeholder="Filter by category...">
 										<datalist id="datalistCategories">
 											<option value="Uncategorized">
-										</datalist-->
+										</datalist> ->
 								</div>
 							</form>
-							
-							<form class="col-12 col-lg-8 mt-4">
-								<div class="input-group">
-									<input id="etSearchProduct" type="text" class="form-control" placeholder="Search product by name..." aria-label="Search product by name..." aria-describedby="btnSearch">
-									<button class="btn btn-primary search-button" type="button" id="btnSearchProduct">
+
+							<form class="col-12 mt-4">
+								<div class="input-group w-100">
+									<label class="input-group-text" for="menuFilter">Filter By</label>
+									<select class="form-select" id="menuFilter">
+										<option value="Ride ID">Ride ID</option>
+										<option value="Passenger ID">Passenger ID</option>
+										<option value="Rider ID">Rider ID</option>
+									</select>
+									<input id="etSearchId" type="text" class="form-control w-50" placeholder="Enter ID" aria-label="Enter ID">
+									<button class="btn btn-primary search-button" type="button" id="btnSearchId">
 										<i class="fi fi-br-search text-light mx-2" style="font-size: 0.8rem;"></i>
 									</button>
 								</div>
@@ -118,20 +202,11 @@
 						</div>
 					</div>
 
-					<table class="table align-middle mt-3">
-						<thead>
-							<tr>
-								<th scope="col" class="col-1">Image</th>
-								<th scope="col" class="col-2">Product</th>
-								<th scope="col" class="col-2">Details</th>
-								<th scope="col" class="col-1">Price</th>
-								<th scope="col" class="col-2">Category</th>
-								<th scope="col" class="col-1">In stock</th>
-								<th scope="col" class="col-2">Actions</th>
-							</tr>
-						</thead>
-						<tbody id="tbodyProducts"></tbody>
-					</table>
+					<h5 id="tvEmptyActiveRides" class="col-12 text-center mt-4">There are currently no active rides</h5>
+
+					<div id="ridesContainer">
+						
+					</div>
 				</div>
 			</div>
 		</div>
@@ -148,7 +223,7 @@
 					<div class="container-fluid">
 						<div class="row justify-content-center">
 							<div class="col-5 col-sm-4 mb-2">
-								<img id="imgProduct" class="upload-image-placeholder col-12 mb-2" alt="" src="https://via.placeholder.com/150?text=Image">
+								<img id="imgProduct" class="upload-image-placeholder col-12 mb-2" alt="" src="https://via.placeholder.com/150?text=No+Image">
 								<div class="input-group mb-3 custom-file-button">
 									<label class="input-group-text col-12 rounded bg-primary text-light justify-content-center border-0" for="btnUploadImage">Upload</label>
 									<input type="file" accept="image/jpeg, image/png, image/jpg" class="form-control d-none" id="btnUploadImage">
@@ -185,7 +260,7 @@
 								<div class="input-group has-validation mb-2">
 									<span class="input-group-text">₱</span>
 									<div class="form-floating price-validator">
-										<input type="number" min="0" class="form-control price-validator" id="etPrice" placeholder="Price" value="0.00" step="1.00" required>
+										<input type="number" min="0.00" class="form-control price-validator" id="etPrice" placeholder="Price" value="0.00" step="1.00" onkeyup="if(this.value<=0){this.value= this.value * -1}" required>
 										<label for="etPrice">Price</label>
 									</div>
 									<div class="invalid-feedback">
@@ -262,7 +337,23 @@
 			</div>
 		</div>
 	</div>
-
+	
+	<div id="modalViewRoute" class="modal fade" tabindex="-1" aria-labelledby="tvViewRouteTitle" aria-hidden="true">
+		<div class="modal-dialog modal-fullscreen modal-dialog-scrollable modal-dialog-centered modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 id="tvViewRouteTitle" class="modal-title fs-5">Route</h1>
+					<button id="btnCloseModal" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div id="modalViewRouteBody" class="modal-body">
+					<div id="map" class="google-map form-control unit-location-validator"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<script>(g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})
+		({key: "AIzaSyAiq-ZSfS5QdwGEWJAzz3eC0enuOkHvphM", v: "weekly"});</script>
 	<script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

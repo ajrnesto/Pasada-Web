@@ -1,27 +1,29 @@
 import { db } from '../js/firebase.js';
-import { doc, getDoc } from 'https://www.gstatic.com/firebasejs/9.16.0/firebase-firestore.js';
+import { doc, getDoc } from 'https://www.gstatic.com/firebasejs/10.5.2/firebase-firestore.js';
 
 /* authentication */
 export function checkUserTypeThenRedirect(user) {
 	if (!user) {
+		window.location = "./login.html";
 		return;
 	}
 
 	const docRef = doc(db, "users", user.uid);
 	getDoc(docRef).then(userSnap => {
 		const userType = userSnap.data().userType;
-		if (userType == 0) {
-			window.location = "../shop.html";
-		}
-		else if (userType == 1) {
-			window.location = "../admin/dashboard.html";
+		// if (userType == 0) {
+		// 	window.location = "./login.html";
+		// }
+		// else
+		if (userType == 1) {
+			window.location = "./rides.html";
 		}
 	});
 }
 
 export function checkAuthThenRedirect(user) {
 	if (!user) {
-		window.location = "../shop.html";
+		window.location = "./login.html";
 		return;
 	}
 
@@ -30,15 +32,15 @@ export function checkAuthThenRedirect(user) {
 
 export function blockNonAdmins(user) {
 	if (!user) {
-		window.location = "../shop.html";
+		window.location = "./login.html";
 		return;
 	}
 
 	const docRef = doc(db, "users", user.uid);
 	getDoc(docRef).then(userSnap => {
 		const userType = userSnap.data().userType;
-		if (userType != 1) {
-			window.location = "../shop.html";
+		if (userType == 0) {
+			window.location = "./login.html";
 		}
 	});
 }
@@ -83,6 +85,10 @@ export function resetValidation(elements) {
 	});
 }
 
+export function capitalizeFirstLetter(string) {
+	return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 export function generateAvatar(firstName) {
 	const firstLetter = firstName.charAt(0);
     const imgAvatar = document.querySelectorAll('.user-avatar');
@@ -90,7 +96,7 @@ export function generateAvatar(firstName) {
     const context = canvas.getContext("2d");
 
     const foregroundColor = "white";
-    const backgroundColor = '#2980ba';
+    const backgroundColor = '#070808';
 
     canvas.width = 35;
     canvas.height = 35;
@@ -130,7 +136,7 @@ export function parseButtonAction(status, deliveryOption) {
 	else if (status == "In Transit") {
 		return "Mark as Delivered";
 	}
-	else if (status == "Delivered/Picked-up") {
+	else if (status == "Delivered/Picked-up" || status == "Failed Delivery") {
 		return -1;
 	}
 }

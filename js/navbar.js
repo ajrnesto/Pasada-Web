@@ -1,5 +1,5 @@
 import { onAuthStateChanged, signOut } from '../node_modules/firebase/firebase-auth.js';
-import { doc, getDoc } from 'https://www.gstatic.com/firebasejs/9.16.0/firebase-firestore.js';
+import { doc, getDoc } from 'https://www.gstatic.com/firebasejs/10.5.2/firebase-firestore.js';
 import { db, auth } from '../js/firebase.js';
 import { generateAvatar, showElement, hideElement } from '../js/utils.js';
 
@@ -29,15 +29,21 @@ onAuthStateChanged(auth, user => {
 			const userType = userSnap.data().userType;
 
 			if (userType == ADMIN) {
-				window.location = "../admin/dashboard.html";
+				window.location = "./admin/dashboard.html";
 			}
 			else if (userType == CUSTOMER) {
 				showElement(btnTrackOrdersListItem);
 				showElement(btnCartListItem);
 				showElement(btnAvatarListItem);
 				hideElement(btnLoginOrSignupListItem);
-				generateAvatar(user.email.toUpperCase());
-				tvEmail.textContent = user.email;
+				if (user.displayName != null) {
+					generateAvatar(user.displayName.toUpperCase());
+					tvEmail.textContent = user.displayName;
+				}
+				else {
+					generateAvatar("?");
+					tvEmail.textContent = user.phoneNumber;
+				}
 			}
 		});
 	}
@@ -51,9 +57,9 @@ onAuthStateChanged(auth, user => {
 
 btnLogout.addEventListener("click", () => {
 	signOut(auth);
-	window.location = "../login.html";
+	window.location = "./login.html";
 });
 
 btnLoginOrSignup.addEventListener("click", () => {
-	window.location = "../login.html";
+	window.location = "./login.html";
 });
